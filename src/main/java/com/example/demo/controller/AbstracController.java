@@ -5,16 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-public interface Requests {
+public interface AbstracController {
 
-    @GetMapping("/")
+    @GetMapping("/search/findAll")
     String test();
 
     @GetMapping("/users")
     ResponseEntity<?> getAll();
 
     @GetMapping("/user/{id}")
-    ResponseEntity<?> getUser(@PathVariable("id") String id);
+    ResponseEntity<?> getUser(@PathVariable("id") Long id);
 
     @GetMapping("/user/email/{email}")
     ResponseEntity<?> getEmail(@PathVariable("email") String email);
@@ -23,9 +23,9 @@ public interface Requests {
     void save(@Validated @RequestBody User user);
 
     @PutMapping("update/{id}")
-    ResponseEntity<?> updateUser(@PathVariable("id") String id,@Validated @RequestBody User user);
+    ResponseEntity<?> updateUser(@PathVariable("id") Long id,@Validated @RequestBody User user);
 
 
     @DeleteMapping("delete user/{id}")
-    ResponseEntity<?> deleteUser(@PathVariable("id") String id);
+    ResponseEntity<?> deleteUser(@PathVariable("id") Long id);
 }

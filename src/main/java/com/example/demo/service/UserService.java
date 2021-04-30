@@ -17,17 +17,19 @@ public class UserService {
         return repository.findAll();
     }
    //return user
-    public User getById(String id){
+    public User getById(Long id){
         return repository.findById(id).orElse(null);
     }
 
-
+    public User findByEmail(String email){
+        return repository.findByEmail(email);
+    }
 
     public void add(User user){
         repository.save(user);
     }
 
-    public void update(String id, User update){
+    public void update(Long id, User update){
         User exist = repository.findById(id).orElse(update);
         exist.setEmail(update.getEmail());
         exist.setPassword(exist.getPassword());
@@ -35,7 +37,7 @@ public class UserService {
         repository.save(exist);
     }
 
-    public void deleteUserById(String id){
+    public void deleteUserById(Long id){
         User exists = repository.findById(id).orElse(null);
         repository.delete(exists);
     }

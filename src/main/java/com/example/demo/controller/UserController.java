@@ -12,7 +12,8 @@ import java.util.NoSuchElementException;
 
 
 @RestController
-public class UserController implements Requests{
+@RequestMapping("/api/v1/user")
+public class UserController implements AbstracController {
 
     @Autowired
     private UserService service;
@@ -29,7 +30,7 @@ public class UserController implements Requests{
     }
 
     @Override
-    public ResponseEntity<?> getUser(String id) {
+    public ResponseEntity<?> getUser(Long id) {
         try {
             User user = service.getById(id);
             return new ResponseEntity<User>(user, HttpStatus.OK);
@@ -41,8 +42,8 @@ public class UserController implements Requests{
     @Override
     public ResponseEntity<?> getEmail(String email) {
         try {
-            User user = service.getById(email);
-            return new ResponseEntity<User>(user, HttpStatus.OK);
+
+            return new ResponseEntity(service.findByEmail(email), HttpStatus.OK);
         }catch (NoSuchElementException e){
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
@@ -54,7 +55,7 @@ public class UserController implements Requests{
     }
 
     @Override
-    public ResponseEntity<?> updateUser(String id, User user) {
+    public ResponseEntity<?> updateUser(Long id, User user) {
         try {
             User existsSnack = service.getById(id);
             service.update(id, user);
@@ -66,7 +67,7 @@ public class UserController implements Requests{
     }
 
     @Override
-    public ResponseEntity<?> deleteUser(String id) {
+    public ResponseEntity<?> deleteUser(Long id) {
         try {
             service.deleteUserById(id);
 
